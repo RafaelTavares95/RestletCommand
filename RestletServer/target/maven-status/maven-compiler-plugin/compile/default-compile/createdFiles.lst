@@ -1,0 +1,6 @@
+edu\ifpb\pos\restletserver\App.class
+edu\ifpb\pos\restletserver\entities\User.class
+edu\ifpb\pos\restletserver\dao\DAOJPA.class
+edu\ifpb\pos\restletserver\entities\Person.class
+edu\ifpb\pos\restletserver\resources\UserResource.class
+edu\ifpb\pos\restletserver\dao\DAO.class
