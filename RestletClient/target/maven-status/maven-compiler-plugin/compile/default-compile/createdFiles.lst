@@ -1,2 +1,3 @@
-edu\ifpb\pos\restletclient\Filter.class
 edu\ifpb\pos\restletclient\CommandLineApp.class
+edu\ifpb\pos\restletclient\User.class
+edu\ifpb\pos\restletclient\Person.class

@@ -7,7 +7,6 @@
 package edu.ifpb.pos.restletclient;
 
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -48,7 +47,7 @@ public class CommandLineApp {
     
     private static void getHelp() {
         HelpFormatter formatter = new HelpFormatter();
-        formatter.printHelp("--[insert | update | delete | select] {key:value,...} "
+        formatter.printHelp("--[insert | update | delete | select] {'key':'value',...} "
                 + "--type [json_person | json_user]", getOp());
     }
     
@@ -63,23 +62,23 @@ public class CommandLineApp {
         if (line.hasOption(UPDATE) && line.hasOption(TYPE)) {
 
             String url = getUrlType(line.getOptionValue(TYPE));
-            update(url, line.getOptionValue(UPDATE));
+            update(url, line.getOptionValue(UPDATE), line.getOptionValue(TYPE));
 
         }
         if (line.hasOption(DELETE) && line.hasOption(TYPE)) {
 
             String url = getUrlType(line.getOptionValue(TYPE));
-            delete(url, line.getOptionValue(DELETE));
+            delete(url, line.getOptionValue(DELETE),line.getOptionValue(TYPE));
 
         }
         if (line.hasOption(SELECT) && line.hasOption(TYPE)) {
 
             String url = getUrlType(line.getOptionValue(TYPE));
             String optionValue = line.getOptionValue(SELECT);
-            if (optionValue == null) {
+            if (optionValue == null || optionValue.equals("")) {
                 select(url);
             } else {
-                select(url, optionValue);
+                select(url, optionValue, line.getOptionValue(TYPE));
             }
         }
 
@@ -97,10 +96,23 @@ public class CommandLineApp {
         }
     }
     
-    private static Filter convert(String json){
-        Gson gson = new GsonBuilder().create();
-        Filter fil = gson.fromJson(json, Filter.class);
-        return fil;
+//    private static Filter convert(String json){
+//        Gson gson = new GsonBuilder().create();
+//        Filter fil = gson.fromJson(json, Filter.class);
+//        return fil;
+//    }
+    
+    private static String getFilter(String json, String type){
+        String value="";
+        if (type.equals(JSON_PERSON)) {
+            Person p = new Gson().fromJson(json, Person.class);
+            value = p.getCode();
+        } else if (type.equals(JSON_USER)) {
+            User u = new Gson().fromJson(json, User.class);
+            value = u.getPerson_code();
+        }
+        
+        return value;
     }
   
     //operations
@@ -110,14 +122,14 @@ public class CommandLineApp {
         client.post(r).write(System.out);
     }
 
-    private static void update(String url, String json) throws IOException {
-        ClientResource client = new ClientResource(url + "/" + convert(json).getValue());
+    private static void update(String url, String json, String type) throws IOException {
+        ClientResource client = new ClientResource(url + "/" + getFilter(json, type));
         StringRepresentation r = new StringRepresentation(json, MediaType.APPLICATION_ALL_JSON);
         client.put(r).write(System.out);
     }
 
-    private static void delete(String url, String json) throws IOException {
-        ClientResource client = new ClientResource(url + "/" + convert(json).getValue());
+    private static void delete(String url, String json, String type) throws IOException {
+        ClientResource client = new ClientResource(url + "/" + getFilter(json, type));
         client.delete().write(System.out);
     }
 
@@ -126,8 +138,8 @@ public class CommandLineApp {
         client.get().write(System.out);
     }
 
-    private static void select(String url, String json) throws IOException {
-        ClientResource client = new ClientResource(url + "/" + convert(json).getValue());
+    private static void select(String url, String json, String type) throws IOException {
+        ClientResource client = new ClientResource(url + "/" + getFilter(json, type));
         client.get().write(System.out);
     }
     
