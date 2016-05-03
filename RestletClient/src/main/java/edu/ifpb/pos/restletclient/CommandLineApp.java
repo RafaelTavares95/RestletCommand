@@ -81,8 +81,6 @@ public class CommandLineApp {
                 select(url, optionValue, line.getOptionValue(TYPE));
             }
         }
-
-        throw new ParseException("ERROR: Comando inválido");
     }
     
     private static String getUrlType(String type) throws ParseException {
