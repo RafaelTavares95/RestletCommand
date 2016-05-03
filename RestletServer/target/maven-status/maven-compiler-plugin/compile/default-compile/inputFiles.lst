@@ -5,5 +5,7 @@ C:\Users\Rafael\Documents\NetBeansProjects\RestletCommand\RestletServer\src\main
 C:\Users\Rafael\Documents\NetBeansProjects\RestletCommand\RestletServer\src\main\java\edu\ifpb\pos\restletserver\entities\Person.java
 C:\Users\Rafael\Documents\NetBeansProjects\RestletCommand\RestletServer\src\main\java\edu\ifpb\pos\restletserver\resources\PersonResource.java
 C:\Users\Rafael\Documents\NetBeansProjects\RestletCommand\RestletServer\src\main\java\edu\ifpb\pos\restletserver\resources\UserResource.java
+C:\Users\Rafael\Documents\NetBeansProjects\RestletCommand\RestletServer\src\main\java\edu\ifpb\pos\restletserver\resources\UserResourceFilter.java
 C:\Users\Rafael\Documents\NetBeansProjects\RestletCommand\RestletServer\src\main\java\edu\ifpb\pos\restletserver\App.java
+C:\Users\Rafael\Documents\NetBeansProjects\RestletCommand\RestletServer\src\main\java\edu\ifpb\pos\restletserver\resources\PersonResourceFilter.java
 C:\Users\Rafael\Documents\NetBeansProjects\RestletCommand\RestletServer\src\main\java\edu\ifpb\pos\restletserver\ConverterJson.java
